@@ -8,7 +8,7 @@ enum Error: int
 {
     case UNAUTHORIZED = 1;
     case INVALID_INPUT = 2;
-    case UNKNOWN_ERROR = 3;
+    case GENERAL_ERROR = 3;
     case METHOD_NOT_ALLOWED = 4;
     case TOKEN_NOT_PROVIDED = 5;
     case TOKEN_EXPIRED = 6;
@@ -27,7 +27,7 @@ enum Error: int
         return match ($this) {
             Error::UNAUTHORIZED => Response::HTTP_UNAUTHORIZED,
             Error::INVALID_INPUT => Response::HTTP_BAD_REQUEST,
-            Error::UNKNOWN_ERROR => Response::HTTP_INTERNAL_SERVER_ERROR,
+            Error::GENERAL_ERROR => Response::HTTP_INTERNAL_SERVER_ERROR,
             Error::METHOD_NOT_ALLOWED => Response::HTTP_METHOD_NOT_ALLOWED,
             Error::TOKEN_NOT_PROVIDED => Response::HTTP_UNAUTHORIZED,
             Error::TOKEN_EXPIRED => Response::HTTP_UNAUTHORIZED,
@@ -48,7 +48,7 @@ enum Error: int
         return match ($this) {
             Error::UNAUTHORIZED => 'Unauthorized access',
             Error::INVALID_INPUT => 'Invalid input',
-            Error::UNKNOWN_ERROR => 'Unknown error',
+            Error::GENERAL_ERROR => 'Unknown error',
             Error::METHOD_NOT_ALLOWED => 'Method is not allowed',
             Error::TOKEN_NOT_PROVIDED => 'Token is not provided',
             Error::TOKEN_EXPIRED => 'Token expired',
