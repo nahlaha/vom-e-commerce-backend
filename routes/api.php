@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +16,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1'], function () {
+
+    Route::group(['prefix' => 'users'], function () {
+
+        Route::post('/', [UserController::class, 'createUser']);
+
+        Route::group(['prefix' => 'actions'], function () {
+
+            Route::post('auth',  [UserController::class, 'authenticateUser']);
+
+            Route::get('me', [UserController::class, 'getLoggedInUser'])->middleware('jwt.auth');
+        });
+    });
+
+    Route::group(['prefix' => 'stores'], function () {
+
+        Route::post('/', [StoreController::class, 'createStore'])->middleware('jwt.auth');
+    });
+
+    Route::group(['prefix' => 'products'], function () {
+
+        Route::post('/', [ProductController::class, 'createProduct'])->middleware('jwt.auth');
+    });
+
+    Route::group(['prefix' => 'carts'], function () {
+
+        Route::post('/', [CartController::class, 'createCart'])->middleware('jwt.auth');
+    });
 });

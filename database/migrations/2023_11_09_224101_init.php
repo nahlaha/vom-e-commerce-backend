@@ -78,7 +78,6 @@ return new class extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->decimal('total_price')->nullable();
-            $table->decimal('total_vat')->nullable();
             $table->timestamps();
             $table->softDeletes()->nullable();
         });
@@ -93,7 +92,6 @@ return new class extends Migration
             $table->integer('vat_type_id')->unsigned();
             $table->foreign('vat_type_id')->references('id')->on('vat_types');
             $table->decimal('vat_value')->nullable();
-            $table->decimal('total')->nullable();
             $table->decimal('shipping_cost')->nullable();
             $table->timestamps();
             $table->softDeletes()->nullable();

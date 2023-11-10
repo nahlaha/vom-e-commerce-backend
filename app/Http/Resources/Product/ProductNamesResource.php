@@ -21,7 +21,6 @@ class ProductNamesResource extends BaseJsonResource
             'product_id' => $this->product_id,
             'name' => $this->name,
             'description' => $this->description,
-            'language_type' => $this->language_id,
         ];
     }
 }

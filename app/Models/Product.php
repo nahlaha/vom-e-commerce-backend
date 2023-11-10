@@ -43,6 +43,6 @@ class Product extends Model
     public function cartProducts()
     {
         return $this->belongsToMany('App\Models\Cart', 'cart_products')
-            ->withPivot(['quantity', 'product_price', 'vat_type_id', 'vat_value', 'shipping_cost', 'total']);
+            ->withPivot(['quantity', 'product_price', 'vat_type_id', 'vat_value', 'shipping_cost']);
     }
 }

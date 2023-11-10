@@ -13,5 +13,5 @@ interface IProductRepo
 
     public function createProduct(CreateProductDto $createProductDto): Product;
 
-    public function productsByIds(array $ids): array;
+    public function getProductsByIds(array $ids): array;
 }

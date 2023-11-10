@@ -17,7 +17,7 @@ class Cart extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['user_id', 'total_price', 'total_vat'];
+    protected $fillable = ['user_id', 'total_price'];
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
@@ -35,6 +35,6 @@ class Cart extends Model
     public function cartProducts()
     {
         return $this->belongsToMany('App\Models\Product', 'cart_products')
-            ->withPivot(['quantity', 'product_price', 'vat_type_id', 'vat_value', 'shipping_cost','total']);
+            ->withPivot(['quantity', 'product_price', 'vat_type_id', 'vat_value', 'shipping_cost']);
     }
 }

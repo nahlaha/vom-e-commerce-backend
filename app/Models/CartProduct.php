@@ -24,7 +24,6 @@ class CartProduct extends Model
         'product_price',
         'vat_type_id',
         'vat_value',
-        'total',
         'shipping_cost'
     ];
 

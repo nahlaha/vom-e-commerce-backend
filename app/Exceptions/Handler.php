@@ -44,17 +44,6 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    /**
-     * Register the exception handling callbacks for the application.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
-    }
 
     /**
      * Render an exception into an HTTP response.
@@ -90,6 +79,6 @@ class Handler extends ExceptionHandler
         if ($exception instanceof UnauthorizedHttpException) {
             throw new AuthException(Error::TOKEN_NOT_PROVIDED->value);
         }
-        throw new TechnicalException(Error::UNKNOWN_ERROR->value, $exception);
+        throw new TechnicalException(Error::GENERAL_ERROR->value, $exception);
     }
 }

@@ -49,4 +49,13 @@ final class ProductService implements IProductService
         });
         return $product;
     }
+
+    /**
+     * @param array $ids
+     * @return array
+     */
+    public function getProductsByIds(array $ids): array
+    {
+        return $this->productRepo->getProductsByIds($ids);
+    }
 }
