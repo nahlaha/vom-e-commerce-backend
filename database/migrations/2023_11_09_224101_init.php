@@ -35,6 +35,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('image_path')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('description')->nullable();
             $table->integer('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles');
             $table->timestamps();
