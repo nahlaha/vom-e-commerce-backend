@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\Product;
+namespace App\Http\Resources\Cart;
 
 use App\Http\Resources\BaseJsonResource;
+use App\Http\Resources\Product\ProductNamesResource;
 
 class CartResource extends BaseJsonResource
 {
@@ -20,7 +21,6 @@ class CartResource extends BaseJsonResource
         return [
             'id' => $this->id,
             'total_price' => $this->total_price,
-            'total_vat' => $this->total_vat,
             'products' => ProductNamesResource::collection($this->whenLoaded('productNames'))
 
         ];

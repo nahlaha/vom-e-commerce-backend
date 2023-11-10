@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Dtos\Cart\CreateCartDto;
 use App\Http\Requests\Cart\CreateCartRequest;
-use App\Http\Resources\Product\CartResource;
+use App\Http\Resources\Cart\CartResource;
 use App\Services\Interfaces\ICartService;
 use App\Services\ResponseService;
 use Illuminate\Routing\Controller as BaseController;
