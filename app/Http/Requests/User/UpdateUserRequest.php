@@ -18,12 +18,13 @@ class UpdateUserRequest extends BaseRequest
      */
     public function rules()
     {
+        $commonValidation = 'nullable|max:255|regex:';
         return [
-            'first_name' => 'required|max:255|regex:' . Regex::ALLOW_ENGLISH_SPECIAL_CHARACTERS_NUMBERS,
-            'last_name' => 'nullable|max:255|regex:' . Regex::ALLOW_ENGLISH_SPECIAL_CHARACTERS_NUMBERS,
-            'email' => 'required|email',
+            'first_name' => $commonValidation . Regex::ALLOW_ENGLISH_SPECIAL_CHARACTERS_NUMBERS,
+            'last_name' => $commonValidation . Regex::ALLOW_ENGLISH_SPECIAL_CHARACTERS_NUMBERS,
+            'email' => 'nullable|email',
             'phone_number' => 'nullable|max:10|regex:' . Regex::NUMBERS_DASH,
-            'description' => 'nullable|max:255|regex:' . Regex::ALLOW_ENGLISH_SPECIAL_CHARACTERS_NUMBERS,
+            'description' => $commonValidation . Regex::ALLOW_ENGLISH_SPECIAL_CHARACTERS_NUMBERS,
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ];
     }

@@ -13,7 +13,6 @@ use App\Models\User;
 use App\Repositories\Interfaces\IUserRepo;
 use App\Services\Interfaces\IUserService;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 
@@ -57,9 +56,8 @@ final class UserService implements IUserService
 
     /**
      * @param GetUsersDto $getUsersDto
-     * @return \Illuminate\Support\Collection
      */
-    public function getUsers(GetUsersDto $getUsersDto): Collection
+    public function getUsers(GetUsersDto $getUsersDto)
     {
         return $this->userRepository->getUsers($getUsersDto);
     }
@@ -84,7 +82,9 @@ final class UserService implements IUserService
     {
         $this->getUserById($updateUserDto->id);
         $result = $this->userRepository->updateUser($updateUserDto);
-        $this->saveImage($updateUserDto->id, $updateUserDto->image);
+        if (!is_null($updateUserDto->image)) {
+            $this->saveImage($updateUserDto->id, $updateUserDto->image);
+        }
         return $result;
     }
 

@@ -10,9 +10,9 @@ use Illuminate\Http\UploadedFile;
 final class UpdateUserDto
 {
 
-    public string $firstName;
-    public ?string $lastName;
-    public string $email;
+    public ?string $firstName = null;
+    public ?string $lastName = null;
+    public ?string $email = null;
     public ?string $phoneNumber = null;
     public ?string $description = null;
     public ?string $imagePath = null;

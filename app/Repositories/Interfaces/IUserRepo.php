@@ -8,7 +8,6 @@ use App\Dtos\User\CreateUserDto;
 use App\Dtos\User\GetUsersDto;
 use App\Dtos\User\UpdateUserDto;
 use App\Models\User;
-use Illuminate\Support\Collection;
 
 interface IUserRepo
 {
@@ -22,5 +21,5 @@ interface IUserRepo
 
     public function deleteUser(int $id): bool|null;
 
-    public function getUsers(GetUsersDto $getUsersDto): Collection;
+    public function getUsers(GetUsersDto $getUsersDto);
 }

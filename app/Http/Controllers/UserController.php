@@ -82,8 +82,8 @@ class UserController extends BaseController
      */
     public function updateUser(UpdateUserRequest $request, int $id)
     {
-        $user = $this->userService->updateUser(new UpdateUserDto($request, $id));
-        return $this->responseService->getSuccessResponse(new UserResource($user));
+        $result = $this->userService->updateUser(new UpdateUserDto($request, $id));
+        return $this->responseService->getSuccessResponse($result);
     }
 
     /**
@@ -106,7 +106,7 @@ class UserController extends BaseController
      * @return \App\Services\Illuminate\Http\Response
      * @throws \App\Exceptions\ApplicationException
      */
-    public function getAllUsers(GetUsersRequest $request, int $id)
+    public function getAllUsers(GetUsersRequest $request)
     {
         return $this->responseService->getSuccessResponse($this->userService->getUsers(new GetUsersDto()));
     }

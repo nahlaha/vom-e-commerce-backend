@@ -9,7 +9,6 @@ use App\Dtos\User\GetUsersDto;
 use App\Dtos\User\UpdateUserDto;
 use App\Models\User;
 use App\Repositories\Interfaces\IUserRepo;
-use Illuminate\Support\Collection;
 
 /**
  * Class UserRepository
@@ -65,26 +64,27 @@ final class UserRepository implements IUserRepo
      */
     public function updateUser(UpdateUserDto $updateUserDto): bool
     {
-        $this->user->where('id', $updateUserDto->id);
+        $user = $this->user->find($updateUserDto->id);
+        $userArr = [];
         if (!is_null($updateUserDto->firstName)) {
-            $this->user->first_name = $updateUserDto->firstName;
+            $userArr['first_name'] = $updateUserDto->firstName;
         }
         if (!is_null($updateUserDto->lastName)) {
-            $this->user->last_name = $updateUserDto->lastName;
+            $userArr['last_name'] = $updateUserDto->lastName;
         }
         if (!is_null($updateUserDto->email)) {
-            $this->user->email = $updateUserDto->email;
+            $userArr['email'] = $updateUserDto->email;
         }
         if (!is_null($updateUserDto->phoneNumber)) {
-            $this->user->phone_number = $updateUserDto->phoneNumber;
+            $userArr['phone_number'] = $updateUserDto->phoneNumber;
         }
         if (!is_null($updateUserDto->description)) {
-            $this->user->description = $updateUserDto->description;
+            $userArr['description'] = $updateUserDto->description;
         }
         if (!is_null($updateUserDto->imagePath)) {
-            $this->user->image_path = $updateUserDto->imagePath;
+            $userArr['image_path'] = $updateUserDto->imagePath;
         }
-        return $this->user->save();
+        return $user->update($userArr);
     }
 
     /**
@@ -98,9 +98,8 @@ final class UserRepository implements IUserRepo
 
     /**
      * @param GetUsersDto $getUsersDto
-     * @return \Illuminate\Support\Collection
      */
-    public function getUsers(GetUsersDto $getUsersDto): Collection
+    public function getUsers(GetUsersDto $getUsersDto)
     {
         $query = $this->user->select('*');
 

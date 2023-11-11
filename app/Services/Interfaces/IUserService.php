@@ -8,7 +8,6 @@ use App\Dtos\User\CreateUserDto;
 use App\Dtos\User\GetUsersDto;
 use App\Dtos\User\UpdateUserDto;
 use App\Models\User;
-use Illuminate\Support\Collection;
 
 interface IUserService
 {
@@ -16,7 +15,7 @@ interface IUserService
 
     public function createUser(CreateUserDto $createUserDto): User;
 
-    public function getUsers(GetUsersDto $getUsersDto): Collection;
+    public function getUsers(GetUsersDto $getUsersDto);
 
     public function updateUser(UpdateUserDto $updateUserDto): bool;
 

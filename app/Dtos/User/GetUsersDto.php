@@ -9,7 +9,7 @@ use App\Constants\SortOptions;
 final class GetUsersDto
 {
 
-    public string $recodePerPage;
+    public int $recodePerPage;
     public string $sortBy;
     public string $sortOrder;
 

@@ -9,7 +9,7 @@ enum SortOptions: int
     case ORDER_DESCENDING = 2;
     case BY_ID = 3;
 
-    public function getSortOrder(): int
+    public function getSortOrder(): string
     {
         return match ($this) {
             SortOptions::ORDER_ASCENDING => 'ASC',
