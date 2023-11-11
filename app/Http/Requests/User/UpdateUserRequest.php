@@ -8,7 +8,7 @@ use App\Constants\Regex;
 use App\Constants\Role;
 use App\Http\Requests\BaseRequest;
 
-class CreateUserRequest extends BaseRequest
+class UpdateUserRequest extends BaseRequest
 {
 
     /**
@@ -22,12 +22,9 @@ class CreateUserRequest extends BaseRequest
             'first_name' => 'required|max:255|regex:' . Regex::ALLOW_ENGLISH_SPECIAL_CHARACTERS_NUMBERS,
             'last_name' => 'nullable|max:255|regex:' . Regex::ALLOW_ENGLISH_SPECIAL_CHARACTERS_NUMBERS,
             'email' => 'required|email',
-            'password' => 'nullable|regex:' . Regex::PASSWORD,
-            'role_id' => 'nullable|in:' . implode(',', array_column(Role::cases(), 'value')),
             'phone_number' => 'nullable|max:10|regex:' . Regex::NUMBERS_DASH,
             'description' => 'nullable|max:255|regex:' . Regex::ALLOW_ENGLISH_SPECIAL_CHARACTERS_NUMBERS,
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-
         ];
     }
 }

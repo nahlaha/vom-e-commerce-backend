@@ -22,6 +22,15 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::post('/', [UserController::class, 'createUser']);
 
+        Route::get('/', [UserController::class, 'getAllUsers']);
+
+        Route::group(['prefix' => '{id}'], function () {
+
+            Route::put('/', [UserController::class, 'updateUser']);
+
+            Route::delete('/', [UserController::class, 'deleteUser']);
+        });
+
         Route::group(['prefix' => 'actions'], function () {
 
             Route::post('auth',  [UserController::class, 'authenticateUser']);

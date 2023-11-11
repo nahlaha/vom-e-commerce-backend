@@ -6,13 +6,16 @@ namespace App\Services;
 
 use App\Constants\Error;
 use App\Dtos\User\CreateUserDto;
+use App\Dtos\User\GetUsersDto;
+use App\Dtos\User\UpdateUserDto;
 use App\Exceptions\ApplicationException;
 use App\Models\User;
 use App\Repositories\Interfaces\IUserRepo;
 use App\Services\Interfaces\IUserService;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * Class UserService
@@ -48,10 +51,55 @@ final class UserService implements IUserService
         $createUserDto->password = Hash::make($createUserDto->password);
 
         $savedUser = $this->userRepository->createUser($createUserDto);
-        //save userimages on server
-        $imagePath = Config::get('ecommerce.storage_path') . DIRECTORY_SEPARATOR . $savedUser->id;
-        $image = $createUserDto->image;
-        $image->storeAs($imagePath, $image->getClientOriginalName());
+        $this->saveImage($savedUser->id, $createUserDto->image);
         return $savedUser;
+    }
+
+    /**
+     * @param GetUsersDto $getUsersDto
+     * @return \Illuminate\Support\Collection
+     */
+    public function getUsers(GetUsersDto $getUsersDto): Collection
+    {
+        return $this->userRepository->getUsers($getUsersDto);
+    }
+
+
+    /**
+     * @param int $id
+     * @return User
+     */
+    private function getUserById(int $id): User|null
+    {
+        $user = $this->userRepository->getUserById($id);
+        if (is_null($user)) {
+            throw new ApplicationException(Error::USER_NOT_FOUND->value);
+        }
+        return  $user;
+    }
+
+
+
+    public function updateUser(UpdateUserDto $updateUserDto): bool
+    {
+        $this->getUserById($updateUserDto->id);
+        $result = $this->userRepository->updateUser($updateUserDto);
+        $this->saveImage($updateUserDto->id, $updateUserDto->image);
+        return $result;
+    }
+
+
+    public function deleteUser(int $id): bool|null
+    {
+        $this->getUserById($id);
+        return $this->userRepository->deleteUser($id);
+    }
+
+
+    private function saveImage(int $userId, UploadedFile $image)
+    {
+        //save userimages on server
+        $imagePath = Config::get('ecommerce.storage_path') . DIRECTORY_SEPARATOR . $userId;
+        $image->storeAs($imagePath, $image->getClientOriginalName());
     }
 }
