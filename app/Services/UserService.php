@@ -50,7 +50,9 @@ final class UserService implements IUserService
         $createUserDto->password = Hash::make($createUserDto->password);
 
         $savedUser = $this->userRepository->createUser($createUserDto);
-        $this->saveImage($savedUser->id, $createUserDto->image);
+        if (!is_null($createUserDto->image)) {
+            $this->saveImage($savedUser->id, $createUserDto->image);
+        }
         return $savedUser;
     }
 
